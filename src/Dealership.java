@@ -64,11 +64,32 @@ class Dealership {
         var d = new Dealership("XYZ MOTORS", "", "");
 
         //ADD TO INVENTORY
-        d.addVehicle(new Vehicle(123, 1999, "MAZDA", "MX-5", "ROADSTER", "WHITE", 128_000, 5_000));
-        d.addVehicle(new Vehicle(456, 2008, "HYUNDAI", "ELANTRA GT", "ROADSTER", "BLANK", 111_000, 10_000));
+        d.addVehicle(new Vehicle(
+                123,
+                1999,
+                "MAZDA",
+                "MX-5",
+                "ROADSTER",
+                "WHITE",
+                128_000,
+                5_000
+        ));
 
-        System.out.println(d); //show dealership
+        d.addVehicle(new Vehicle(
+                456,
+                2008,
+                "HYUNDAI",
+                "ELANTRA GT",
+                "ROADSTER",
+                "BLANK",
+                111_000,
+                10_000
+        ));
 
+        //SHOW DEALERSHIP
+        System.out.println(d);
+
+        //SHOW INVENTORY
         for (Vehicle v : d.getAllVehicles()) {
             System.out.println(v);
         }
