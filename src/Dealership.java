@@ -24,27 +24,63 @@ class Dealership {
 
     //METHODS
     public List<Vehicle> getVehiclesByPrice(double min, double max) {
-        return inventory;
+        ArrayList<Vehicle> matches = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.price >= min && v.price <= max) {
+                matches.add(v);
+            }
+        }
+        return matches;
     }
 
-    public List<Vehicle> getVehiclesByMakeModel(String make, String Model) {
-        return inventory;
+    public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
+        ArrayList<Vehicle> matches = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.make.equalsIgnoreCase(make) && v.model.equalsIgnoreCase(model)) {
+                matches.add(v);
+            }
+        }
+        return matches;
     }
 
     public List<Vehicle> getVehiclesByYear(int min, int max) {
-        return inventory;
+        ArrayList<Vehicle> matches = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.year >= min && v.year <= max) {
+                matches.add(v);
+            }
+        }
+        return matches;
     }
 
     public List<Vehicle> getVehiclesByColor(String color) {
-        return inventory;
+        ArrayList<Vehicle> matches = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.color.equalsIgnoreCase(color)) {
+                matches.add(v);
+            }
+        }
+        return matches;
     }
 
     public List<Vehicle> getVehiclesByMileage(int min, int max) {
-        return inventory;
+        ArrayList<Vehicle> matches = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.odometer >= min && v.odometer <= max) {
+                matches.add(v);
+            }
+        }
+        return matches;
     }
 
-    public List<Vehicle> getVehiclesByType(String type) {
-        return inventory;
+    public List<Vehicle> getVehiclesByType(String vehicleType) {
+        ArrayList<Vehicle> matches = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.vehicleType.equalsIgnoreCase(vehicleType)) {
+                matches.add(v);
+            }
+        }
+        return matches;
     }
 
     public List<Vehicle> getAllVehicles() {
@@ -80,8 +116,8 @@ class Dealership {
                 2008,
                 "HYUNDAI",
                 "ELANTRA GT",
-                "ROADSTER",
-                "BLANK",
+                "HATCHBACK",
+                "BLACK",
                 111_000,
                 10_000
         ));
@@ -90,8 +126,19 @@ class Dealership {
         System.out.println(d);
 
         //SHOW INVENTORY
-        for (Vehicle v : d.getAllVehicles()) {
-            System.out.println(v);
+//        var matches = d.getVehiclesByColor("WHITE");
+//        var matches = d.getAllVehicles();
+//        var matches = d.getVehiclesByYear(2000, 2025);
+//        var matches = d.getVehiclesByType("ROADSTER");
+//        var matches = d.getVehiclesByPrice(4000,6000);
+//        var matches = d.getVehiclesByMileage(1,111_000);
+        var matches = d.getVehiclesByMakeModel("MAZDA", "MX-5");
+        if (matches.size() == 0) {
+            System.out.println("NO MATCHES");
+        } else {
+            for (Vehicle v : matches) {
+                System.out.println(v);
+            }
         }
     }
 }

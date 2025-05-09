@@ -25,8 +25,17 @@ class Vehicle {
     }
 
     public String toString() {
-        return String.format("VIN: '%d'\nYEAR: '%d'\nMAKE: '%s'\nMODEL: '%s'\n",
-                this.vin, this.year, this.make, this.model);
+        return String.format("""
+                VIN: '%d'
+                YEAR: '%d'
+                MAKE: '%s'
+                MODEL: '%s'
+                COLOR: '%s'
+                TYPE: '%s'
+                PRICE: '$%.2f'
+                MILES: '%d'
+                """,
+                this.vin, this.year, this.make, this.model, this.color, this.vehicleType, this.price, this.odometer);
     }
 
 //    public static void main(String[] args) {
