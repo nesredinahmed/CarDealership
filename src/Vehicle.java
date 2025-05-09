@@ -29,10 +29,10 @@ class Vehicle {
                 this.vin, this.year, this.make, this.model);
     }
 
-    public static void main(String[] args) {
-        Vehicle v = new Vehicle(123, 1999, "MAZDA", "MX-5", "ROADSTER", "WHITE", 128_000, 5_000);
-        Vehicle v2 = new Vehicle(456, 2008, "HYUNDAI", "ELANTRA GT", "ROADSTER", "BLANK", 111_000, 10_000);
-        System.out.println(v);
-        System.out.println(v2);
-    }
+//    public static void main(String[] args) {
+//        Vehicle v = new Vehicle(123, 1999, "MAZDA", "MX-5", "ROADSTER", "WHITE", 128_000, 5_000);
+//        Vehicle v2 = new Vehicle(456, 2008, "HYUNDAI", "ELANTRA GT", "ROADSTER", "BLANK", 111_000, 10_000);
+//        System.out.println(v);
+//        System.out.println(v2);
+//    }
 }
