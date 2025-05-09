@@ -26,7 +26,7 @@ class Dealership {
     public List<Vehicle> getVehiclesByPrice(double min, double max) {
         ArrayList<Vehicle> matches = new ArrayList<>();
         for (Vehicle v : inventory) {
-            if (v.price >= min && v.price <= max) {
+            if (v.getPrice() >= min && v.getPrice() <= max) {
                 matches.add(v);
             }
         }
@@ -36,7 +36,7 @@ class Dealership {
     public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
         ArrayList<Vehicle> matches = new ArrayList<>();
         for (Vehicle v : inventory) {
-            if (v.make.equalsIgnoreCase(make) && v.model.equalsIgnoreCase(model)) {
+            if (v.getMake().equalsIgnoreCase(make) && v.getModel().equalsIgnoreCase(model)) {
                 matches.add(v);
             }
         }
@@ -46,7 +46,7 @@ class Dealership {
     public List<Vehicle> getVehiclesByYear(int min, int max) {
         ArrayList<Vehicle> matches = new ArrayList<>();
         for (Vehicle v : inventory) {
-            if (v.year >= min && v.year <= max) {
+            if (v.getYear() >= min && v.getYear() <= max) {
                 matches.add(v);
             }
         }
@@ -56,7 +56,7 @@ class Dealership {
     public List<Vehicle> getVehiclesByColor(String color) {
         ArrayList<Vehicle> matches = new ArrayList<>();
         for (Vehicle v : inventory) {
-            if (v.color.equalsIgnoreCase(color)) {
+            if (v.getColor().equalsIgnoreCase(color)) {
                 matches.add(v);
             }
         }
@@ -66,7 +66,7 @@ class Dealership {
     public List<Vehicle> getVehiclesByMileage(int min, int max) {
         ArrayList<Vehicle> matches = new ArrayList<>();
         for (Vehicle v : inventory) {
-            if (v.odometer >= min && v.odometer <= max) {
+            if (v.getMiles() >= min && v.getMiles() <= max) {
                 matches.add(v);
             }
         }
@@ -76,7 +76,7 @@ class Dealership {
     public List<Vehicle> getVehiclesByType(String vehicleType) {
         ArrayList<Vehicle> matches = new ArrayList<>();
         for (Vehicle v : inventory) {
-            if (v.vehicleType.equalsIgnoreCase(vehicleType)) {
+            if (v.getType().equalsIgnoreCase(vehicleType)) {
                 matches.add(v);
             }
         }
@@ -140,5 +140,17 @@ class Dealership {
                 System.out.println(v);
             }
         }
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getAddress() {
+        return this.address;
+    }
+
+    public String getPhone() {
+        return this.phone;
     }
 }

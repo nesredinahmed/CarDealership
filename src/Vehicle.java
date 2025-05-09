@@ -1,13 +1,13 @@
 
 class Vehicle {
-    int vin; //NOT A STRING?
-    int year;
-    String make;
-    String model;
-    String vehicleType;
-    String color;
-    int odometer;
-    double price;
+    private int vin; //NOT A STRING?
+    private int year;
+    private String make;
+    private String model;
+    private String vehicleType;
+    private String color;
+    private int odometer;
+    private double price;
 
     Vehicle(int vin, int year, String make, String model, String vehicleType, String color, int odometer, double price) {
         this.vin = vin;
@@ -36,6 +36,38 @@ class Vehicle {
                 MILES: '%d'
                 """,
                 this.vin, this.year, this.make, this.model, this.color, this.vehicleType, this.price, this.odometer);
+    }
+
+    public int getVIN() {
+        return this.vin;
+    }
+
+    public int getYear() {
+        return this.year;
+    }
+
+    public String getMake() {
+        return this.make;
+    }
+
+    public String getModel() {
+        return this.model;
+    }
+
+    public String getType() {
+        return this.vehicleType;
+    }
+
+    public String getColor() {
+        return this.color;
+    }
+
+    public int getMiles() {
+        return this.odometer;
+    }
+
+    public double getPrice() {
+        return this.price;
     }
 
 //    public static void main(String[] args) {
