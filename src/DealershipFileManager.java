@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 class DealershipFileManager {
     Dealership getDealership() {
-        File f = new File("dealership.csv");
+        String path = System.getProperty("user.dir");
+        File f = new File(path + "\\dealership.csv");
         FileReader fr;
         try {
             fr = new FileReader(f);
@@ -34,18 +35,34 @@ class DealershipFileManager {
         String phone = data[PHONE];
 
         Dealership dealership = new Dealership(name, address, phone);
-
-        //MORE LINES - ADD VEHICLE
-        int vin; //NOT A STRING?
-        int year;
-        String make;
-        String model;
-        String vehicleType;
-        String color;
-        int odometer;
-        double price;
-        Vehicle v = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
-
+        try {
+            String line = br.readLine();
+            while (line != null){
+                int VIN = 0;
+                int YEAR = 1;
+                int MAKE = 2;
+                int MODEL = 3;
+                int TYPE = 4;
+                int COLOR = 5;
+                int MILES = 6;
+                int PRICE = 7;
+                data = line.split("\\|");
+                //MORE LINES - ADD VEHICLE
+                int vin = Integer.parseInt(data[VIN]); //NOT A STRING?
+                int year = Integer.parseInt(data[YEAR]);
+                String make = data[MAKE];
+                String model = data[MODEL];
+                String vehicleType = data[TYPE];
+                String color = data[COLOR];
+                int odometer = Integer.parseInt(data[MILES]);
+                double price = Float.parseFloat(data[PRICE]);
+                Vehicle v = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
+                dealership.addVehicle(v);
+                line = br.readLine();
+            }
+        }catch (Exception e){
+            System.out.println("Error reading vehicles");
+        }
         return dealership;
     }
 
@@ -53,5 +70,10 @@ class DealershipFileManager {
         //write first line - dealer info
 
         //write line - per vehicle
+    }
+
+    public static void main(String[] args) {
+        DealershipFileManager dfm = new DealershipFileManager();
+        Dealership d = dfm.getDealership();
     }
 }
