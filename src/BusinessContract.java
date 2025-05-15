@@ -1,21 +1,23 @@
 import java.util.Date;
 
 // abstract - CANT CREATE *NEW* INSTANCES DIRECTLY, ONLY OF ITS DESCENDANTS
-abstract class BusinessContract {
+public abstract class BusinessContract {
     private Date date;
     private String customerName;
     private String customerEmail;
     private boolean isSold;
     private double totalPrice;
     private double monthlyPayment;
-
+    private Vehicle vehicle;
     BusinessContract(
+            Vehicle vehicle,
             Date date,
             String customerName,
             String customerEmail,
             boolean isSold,
             double totalPrice
     ) {
+        this.vehicle = vehicle;
         this.date = date;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
