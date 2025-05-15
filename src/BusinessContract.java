@@ -14,15 +14,13 @@ abstract class BusinessContract {
             String customerName,
             String customerEmail,
             boolean isSold,
-            double totalPrice,
-            double monthlyPayment
+            double totalPrice
     ) {
         this.date = date;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.isSold = isSold;
         this.totalPrice = totalPrice;
-        this.monthlyPayment = monthlyPayment;
     }
     public String toString(){
         return String.format("""
