@@ -26,17 +26,17 @@ public abstract class BusinessContract {
     }
     public String toString(){
         return String.format("""
-                %s
-                %s
-                %s
-                %s
-                %.2f
-                %.2f
+                Date:    %s
+                Name:    %s
+                Email:   %s
+                Sold:    %s
+                Total:   %.2f
+                Monthly: %.2f
                 """,
                 this.date,
                 this.customerName,
                 this.customerEmail,
-                this.isSold,
+                this.isSold ? "YES" : "NO",
                 this.totalPrice,
                 this.monthlyPayment
         );

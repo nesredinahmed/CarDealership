@@ -25,6 +25,19 @@ public class SalesContract extends BusinessContract {
         this.processingFee = processingFee;
         this.isFinanced = isFinanced;
     }
+    public String toString(){
+        return super.toString() + String.format("""
+                Sales Tax Amount: %.2f
+                Recording Fee:    %.2f
+                Processing Fee:   %.2f
+                Is Financed:      %s
+                """,
+                this.salesTaxAmount,
+                this.recordingFee,
+                this.processingFee,
+                this.isFinanced ? "YES" : "NO"
+        );
+    }
     public double getSalesTaxAmount(){
         return this.salesTaxAmount;
     }

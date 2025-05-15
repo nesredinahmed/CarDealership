@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -83,10 +84,10 @@ public class ContractFileManager {
         String contractType = parts[CONTRACT_TYPE];
         System.out.println(contractType);
 
-        LocalDate date;
+        Date date = new Date();
         try {
-            date = LocalDate.parse(parts[CONTRACT_DATE], DateTimeFormatter.ofPattern("yyyyMMdd"));
-            System.out.println("Parsed Date: " + date);
+            LocalDate ld = LocalDate.parse(parts[CONTRACT_DATE], DateTimeFormatter.ofPattern("yyyyMMdd"));
+            date = java.util.Date.from(ld.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         } catch (DateTimeParseException e) {
             System.out.println("Error parsing date: " + e.getMessage());
         }
@@ -95,43 +96,47 @@ public class ContractFileManager {
         String customerEmail = parts[CUSTOMER_EMAIL];
 
         boolean isSold = true;
-        BusinessContract contract;
+
         if(contractType.equalsIgnoreCase("SALE")) {
-            //SALES SPECIFIC?
+            //SALES SPECIFIC
             double totalPrice = Double.parseDouble(parts[TOTAL_AMOUNT]);
             double salesTaxAmount = Double.parseDouble(parts[SALES_TAX_AMOUNT]);
             double recordingFee = Double.parseDouble(parts[RECORDING_FEE]);
             double processingFee = Double.parseDouble(parts[PROCESSING_FEE]);
             boolean isFinanced = parts[IS_FINANCED].equalsIgnoreCase("YES");
-//            contract =
-        }
-        if(contractType.equalsIgnoreCase("LEASE")) {
-            //LEASE SPECIFIC?
+
+            return new SalesContract(
+                    vehicle,
+                    date,
+                    customerName,
+                    customerEmail,
+                    isSold,
+                    totalPrice,
+                    salesTaxAmount,
+                    recordingFee,
+                    processingFee,
+                    isFinanced
+            );
+        } else if(contractType.equalsIgnoreCase("LEASE")) {
+            //LEASE SPECIFIC
             double expectedValue = Double.parseDouble(parts[EXPECTED_ENDING_VALUE]);
             double fee = Double.parseDouble(parts[LEASE_FEE]);
             double combined = Double.parseDouble(parts[COMBINED]);
             double monthly = Double.parseDouble(parts[MONTHLY_LEASE]);
+
+            return new LeaseContract(
+                    vehicle,
+                    date,
+                    customerName,
+                    customerEmail,
+                    isSold,
+                    combined,
+                    expectedValue,
+                    fee
+            );
         }
 
-        //TODO SPLIT ON PIPE TO GET AN ARRAY
-        //COPY ARRAY VALUES INTO VARIABLES AND VEHICLE OBJECT
-//        if(isLeaseContract){
-//            new LeaseContract()
-//        }else if(isSalesContract){
-//            new SalesContract()
-//        }
-
-        return new SalesContract(new Vehicle(123), new Date(),
-                "Kevin Ernest Long",
-                "kevinelong@gmail.com",
-                true,
-                10000.00,
-                500.00,
-                0,
-                0,
-                true
-                // TODO? , monthly
-        );
+        return null;
     }
 
     String getContractString(BusinessContract bc) {
