@@ -65,7 +65,7 @@ public class ContractFileManager {
         String[] parts = line.split("\\|");
 
         if (parts.length < MIN_LENGTH) {
-            System.out.println("ERROR IN LINE:" + ling);
+            System.out.println("ERROR IN LINE:" + line);
             return null;
         }
 
