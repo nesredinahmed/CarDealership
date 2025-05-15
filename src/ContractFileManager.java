@@ -1,10 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class ContractFileManager {
     //methods;
 
-    public ArrayList<BusinessContract> load(){
+    public ArrayList<BusinessContract> load() {
         //heterogeneous has more than one kind of contract
         ArrayList<BusinessContract> list = new ArrayList<>();
 
@@ -17,8 +20,8 @@ public class ContractFileManager {
         return list;
     } //read
 
-    public void save(ArrayList<BusinessContract> list){
-        for(BusinessContract c : list){
+    public void save(ArrayList<BusinessContract> list) {
+        for (BusinessContract c : list) {
             System.out.println("SAVING: " + c);
             String line = getContractString(c);
             System.out.println(line);
@@ -26,7 +29,8 @@ public class ContractFileManager {
         }
     } //write
 
-    BusinessContract parseContract(String data){
+    BusinessContract parseContract(String line) {
+        int MIN_LENGTH = 16; // length of the smaller of the two record types.
 
         int CONTRACT_TYPE = 0; // LEASE|
         int CONTRACT_DATE = 1; // 20210928|
@@ -43,22 +47,71 @@ public class ContractFileManager {
         int MILES = 10;// 2750|
         int PRICE = 11;// 31995.00|
 
-        /* ** END VEHICLE ** */
-
-        /* LEASE */
+        /* LEASE VARIATION */
         int EXPECTED_ENDING_VALUE = 12; // 15997.50|
         int LEASE_FEE = 13; // 2239.65|
         int COMBINED = 14; // 18337.15|
         int MONTHLY_LEASE = 15; // 541.3 //Rounded down? Math.floor()
 
-        /* SALES */
-//        SALE|20210928|Dana Wyatt|dana@texas.com|10112|1993|Ford|Explorer|SUV|Red|525123|995.00|
+        /* SALES VARIATION */
         int SALES_TAX_AMOUNT = 12; //49.75|
-        int RECORDING_FEE =13;// 100.00|
+        int RECORDING_FEE = 13;// 100.00|
         int PROCESSING_FEE = 14; //processingFee 295.00|
         int TOTAL_AMOUNT = 15; // 1439.75| 11 12 13 14 together
         int IS_FINANCED = 16; //NO|
         int MONTHLY_PAYMENT = 17; //0.00
+
+        /* BEGIN PARSING */
+        String[] parts = line.split("\\|");
+
+        if (parts.length < MIN_LENGTH) {
+            System.out.println("ERROR IN LINE:" + ling);
+            return null;
+        }
+
+        Vehicle vehicle = new Vehicle(
+                Integer.parseInt(parts[VIN]),
+                Integer.parseInt(parts[YEAR]),
+                parts[MAKE],
+                parts[MODEL],
+                parts[TYPE],
+                parts[COLOR],
+                Integer.parseInt(parts[MILES]),
+                Double.parseDouble(parts[PRICE])
+        );
+
+        String contractType = parts[CONTRACT_TYPE];
+        System.out.println(contractType);
+
+        LocalDate date;
+        try {
+            date = LocalDate.parse(parts[CONTRACT_DATE], DateTimeFormatter.ofPattern("yyyyMMdd"));
+            System.out.println("Parsed Date: " + date);
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing date: " + e.getMessage());
+        }
+
+        String customerName = parts[CUSTOMER_NAME];
+        String customerEmail = parts[CUSTOMER_EMAIL];
+
+        boolean isSold = true;
+        BusinessContract contract;
+        if(contractType.equalsIgnoreCase("SALE")) {
+            //SALES SPECIFIC?
+            double totalPrice = Double.parseDouble(parts[TOTAL_AMOUNT]);
+            double salesTaxAmount = Double.parseDouble(parts[SALES_TAX_AMOUNT]);
+            double recordingFee = Double.parseDouble(parts[RECORDING_FEE]);
+            double processingFee = Double.parseDouble(parts[PROCESSING_FEE]);
+            boolean isFinanced = parts[IS_FINANCED].equalsIgnoreCase("YES");
+//            contract =
+        }
+        if(contractType.equalsIgnoreCase("LEASE")) {
+            //LEASE SPECIFIC?
+            double expectedValue = Double.parseDouble(parts[EXPECTED_ENDING_VALUE]);
+            double fee = Double.parseDouble(parts[LEASE_FEE]);
+            double combined = Double.parseDouble(parts[COMBINED]);
+            double monthly = Double.parseDouble(parts[MONTHLY_LEASE]);
+        }
 
         //TODO SPLIT ON PIPE TO GET AN ARRAY
         //COPY ARRAY VALUES INTO VARIABLES AND VEHICLE OBJECT
@@ -76,10 +129,12 @@ public class ContractFileManager {
                 500.00,
                 0,
                 0,
-                true);
+                true
+                // TODO? , monthly
+        );
     }
 
-    String getContractString(BusinessContract bc){
+    String getContractString(BusinessContract bc) {
         //TODO Glue with PIPES ||||
         return "";
     }
